@@ -1,3 +1,7 @@
+# Group
+António Silva [D23129331@mytudublin.ie](mailto:D23129331@mytudublin.ie)
+
+Iain Hull [D23129341@tudublin.com](mailto:D23129341@tudublin.com)
 
 # Structure of the directory
 
