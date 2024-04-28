@@ -1,0 +1,118 @@
+\section{Details of Algorithms \& Configuration}
+
+\subsection{Model Selection}
+
+Given that 13 out of the 14 features in our dataset are categorical\footnote{With
+only the `Age' feature being numerical}, we will primarily focus on models that are 
+particularly well-suited for handling categorical variables. This approach ensures
+that we leverage the characteristics of our dataset effectively, optimizing the 
+model's performance by utilizing algorithms designed to manage and interpret 
+categorical data efficiently.
+
+Decision Trees are also a popular choice for handling categorical data.
+It also handles well in conjunction with numerical and categorical data.
+The rules derived from decision trees are straightforward and easy to interpret.
+This can be very useful in our case when the decisions need to be justified.
+
+Starting with \emph{Gradient Boosting -- CatBoost}\footnote{Cat Boosting
+ is based on Decision Trees.} 
+might be particularly
+beneficial due to its ease of use with categorical variables and 
+strong default performance~\parencite[]{2024:yandex}. 
+
+We will also employ another decision tree algorithm, \emph{Random Forest}. This 
+algorithm not only enhances accuracy beyond that of a traditional decision 
+tree but also offers greater resistance to overfitting~\parencite[]{2024:ibm-rf}.
+
+The last is \emph{Neural Networks}. This one can learn complex patterns and 
+relationships between variables. With the size of our dataset 1M this could
+be a useful approach~\parencite[]{2024:ibm-nn}.
+
+In terms of parametrization we choose the most recommended parameters for our
+dataset based on the documentation provided in Orange Data Mining and 
+skikit-learn\footnote{Orange Data Mining employs scikit-learn's classification and prediction algorithms behind the scenes.}.,
+
+\begin{table}[H]
+    \centering
+    \caption{Model Parametrization}
+    \label{tab:model_parameters}
+    \begin{tabular}{crl} \hline 
+        \textbf{Model} & \textbf{Parameter} & \textbf{Value} \\ \hline\hline
+        \multirow{6}{*}{Gradient Boosting (catboost)} &  Number of trees & 1000 \\ 
+          & Learning rate & 0.03 \\
+          & Replicable training & true \\
+          & Regularization (Lambda) & 3 \\
+          & Limit depth of individual trees & 16 \\
+          & Fraction of features for each tree & 1 \\ \hline 
+        \multirow{2}{*}{Random Forest} &  Number of trees value & 100 \\ 
+          & Number of attributes considered at each split & 4 \\ \hline 
+        \multirow{6}{*}{Neural Network} &  Neurons in hidden layers & 100,100 \\ 
+          & Activation & ReLu \\ 
+          & Solver & Adam \\
+          & Regularization & $\alpha = 0.0001$ \\ 
+          & Maximal number of iterations & 200 \\ 
+          & Replicate training & true \\ \hline 
+    \end{tabular}
+\end{table}
+
+\subsection{Custom Stacked Model}
+
+The models above performed well however we wanted better results given the nature of the 
+predictions we are trying to make and the consequences of false positives or false negatives.
+
+Initially we tried stacking these models with in Orange Stacking widget
+(used with Logistic Regression).
+This trains a model to react to the outputs of the other models. 
+This model had a number of issues
+it was very slow to train and it complicates the explainability of the model.
+ It
+improved on the score over the other models but it did not make a 
+significant improvement to false positives
+or false negatives. As a result the Stacking widget was discarded and a
+custom stacking approach was followed instead.
+
+Our primary concerns were:
+\begin{itemize}
+    \item Only recommend sending a patient home when they did not need hospital treatment;
+    \item Only recommend admitting a patient when they needed hospital treatment;
+    \item Triage when ever there is a doubt;
+    \item Ability to explain or justify our predictions.
+\end{itemize}
+
+To this end we combined the predictions from multiple models as follows:
+
+\begin{itemize}
+    \item yes if and only if all models predict yes;
+    \item no if and only if all models predict no;
+    \item maybe otherwise.
+\end{itemize}
+
+These rules are easy to explain and justify and are well aligned with our goals.
+
+\subsection{Feature Specific Models}
+
+Next we decided to train our models to consider specific features.
+
+\begin{table}[H]
+    \centering
+    \caption{Feature Categories}
+    \label{tab:feat_spec_models}
+    \begin{tabular}{cp{11cm}} \hline 
+     \textbf{Category} & \textbf{Features} \\ \hline\hline
+      Respiratory Illness &  age,  pneumonia, copd, asthma, cardiovascular, tobacco, classification\\ 
+      Other Illness &  age, diabetes, hypertension, other\_disease, renal\_chronic, obesity, cardiovascular, classification \\ 
+      Sex \& Pregnancy  &  age, sex, pregnancy, classification \\ \hline 
+    \end{tabular}
+\end{table}
+
+These feature categories were then used to train Random Forest and Gradient Boosting models as above. 
+Finally we examined how combining these models together with the rules above improved the results. We
+kept the Neural Network model trained on all features in case this discovered some patterns across features
+that the feature categories would miss.
+
+We were not able to implement the rules above in Orange, so we evaluated the results in a python notebook.
+First we used Orange to generate predictions using our base models and the test data. The results
+were then imported into Collab where the prediction columns were combined and added to the dataframe
+. Finally python was used to score different combinations of predictions below.
+
+

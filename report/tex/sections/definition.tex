@@ -1,0 +1,54 @@
+\section{Definition of the problem}
+
+The COVID-19 pandemic placed a strain in the health services in most countries. The disease is very 
+infectious, resulting in sudden spikes in case numbers which quickly overwhelmed hospitals.
+The doctors, nurses and other front line health professionals were critical for responding to the 
+pandemic, however their work placed them in extreme risk of infection. The health services ability 
+to respond and ensure the best possible outcomes to patients depended on the health of front line
+staff.
+
+Every effort was made with PPE equipment and operational procedures to protect staff. A critical
+aspect of this was to reduce contact between patients and staff and ensure that as many patients
+could be treated at home as possible.
+
+The Mexican government have sponsored a data mining study to examine how simple health data could
+be used to automate the triage of COVID-19 patients. They hope this will improve their response to
+new waves of COVID-19 or similar respiratory illness. The goal is to improve their triage process
+and safely reduce the number of patients that require contact with a health professional.
+
+Initially patients are triaged outside the hospital to limit the chance of cross infection. Normally 
+patients are triaged by a health professional as soon as they present, this person decides if they
+need to be admitted to hospital for treatment. However before they are triaged
+patients will be asked to complete a simple questionnaire. This data together with a COVID-19 test 
+result will enable a non-health professional to efficient route them as follows:
+ \begin{itemize}
+     \item Low risk patients will be sent home without further contact with front line staff;
+     \item High risk patients will be streamlined for hospital care with the least possible interaction;
+     \item If the risk assessment is undetermined patients will triaged by a health professional who will
+     make the final decision on admission.
+ \end{itemize}
+
+While the goal is to minimise the number of patients requiring triage it is very important to do so
+safely and with the utmost care for the patients. Therefore false negatives where patients are
+sent home in error must be minimised. Likewise false positives of where patients are hospitalised in
+error must be minimised to preserve capacity. If there is any doubt the patient must be triaged by
+a health professional.
+
+The government has provided a dataset~\parencite[]{2023:NizMei} with details and test results for 
+1,048,575 previous COVID-19 patients. This is used to develop a predictive model to identify 
+patients who require admission to hospital, no admission and those with require further triage.
+
+A well trained model can aid medical staff in making quick data-driven decisions helping:
+ \begin{itemize}
+     \item Medical resources prioritization;
+     \item Enhance patient care;
+     \item Increase the survival rate.
+ \end{itemize}
+We can also correlate some key conditions with some patients conditions such as:
+ \begin{itemize}
+     \item Age;
+     \item Obesity;
+     \item Diabetes;
+     \item Hypertension.
+ \end{itemize}
+ 

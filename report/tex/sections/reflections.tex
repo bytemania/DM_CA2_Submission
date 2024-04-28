@@ -1,0 +1,69 @@
+\section{Reflections}
+
+Our study highlights the complex relationship between COVID-19, 
+infectious diseases, and chronic health conditions such as diabetes and
+pneumonia.
+
+The link between diabetes and COVID-19 is particularly noteworthy, as 
+individuals with diabetes face a heightened risk of severe outcomes
+when infected with the virus. Similarly, pneumonia is recognized as 
+one of the most severe complications associated with COVID-19, 
+often leading to critical cases.
+
+Age also plays a crucial role and is a strong predictor of the need for
+hospitalization. Patients aged over 50 are significantly more likely to 
+require hospital treatment. This increased vulnerability is partly due 
+to the diminished immune response seen in older individuals, coupled 
+with a higher incidence of comorbid conditions that exacerbate the 
+severity of COVID-19 outcomes.
+
+We were dissatisfied with the model's inability to accurately predict 
+hospitalization needs, achieving only a 61.1\% accuracy rate. 
+Our primary concern is the 6.2\% of patients who require treatment 
+but were mistakenly not recommended for hospitalization by our 
+model. This issue largely stems from the imbalanced nature of 
+our dataset. 
+
+To reduce errors in patient triage, we employed a stacking technique to 
+enhance prediction accuracy by integrating multiple algorithms. We organized
+the features by category as outlined in Section~\ref{subsec:stack}. This
+approach successfully decreased the error margin from 6.2\% to 4\%, marking
+a substantial improvement.
+
+Improving the dataset is another effective strategy for enhancing the 
+accuracy of predictions in patient triage.
+To enhance the quality of our data and potentially 
+improve the model's performance, we propose the following steps:
+
+\begin{description}
+    \item[Increase the dataset size] Given the complexity of the 
+    scenario, a dataset of 1 million patients may not be sufficient.
+    Increasing the dataset size is essential, particularly to better 
+    represent minority scenarios such as patients requiring 
+    hospitalization. This expansion will enable the model to learn
+    more effectively from these critical cases;
+    \item[International Expansion] Extending the study to include data 
+    from countries beyond Mexico could enhance the robustness of the 
+    model. Incorporating international datasets would provide a more 
+    diverse range of patient profiles and health dynamics, contributing
+    to improved model accuracy;
+    \item[Balance the Dataset] There is a need to adjust the dataset to
+    include more cases that involve hospitalization. A more balanced 
+    dataset will help mitigate the current model's bias toward the 
+    majority class and improve its predictive accuracy for critical care 
+    scenarios;
+    \item[Enrich the Feature Set] Adding more variables could 
+    significantly enhance the model's understanding of the patients. 
+    Features such as socioeconomic status, living conditions, and 
+    vaccination status are vital as they can influence the likelihood of
+    hospitalization and the overall course of treatment. These
+    additional features will provide a more comprehensive view of each 
+    patient, leading to better-informed predictions.
+\end{description}
+
+Implementing these strategies, we can enhance our model’s ability to 
+accurately predict which patients require hospitalization, thereby 
+improving patient outcomes and optimizing resource allocation.
+
+
+

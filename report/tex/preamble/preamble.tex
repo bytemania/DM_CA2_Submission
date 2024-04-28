@@ -1,0 +1,42 @@
+\usepackage{a4wide}
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc}
+
+\usepackage{float}
+
+\usepackage[style=authoryear-ibid,backend=biber]{biblatex}
+\addbibresource{refs.bib}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen
+    }
+\urlstyle{same}
+
+\usepackage{graphics}
+\usepackage{graphicx}
+% \usepackage{subfig}
+\graphicspath{{./img/}}
+
+\usepackage{caption}
+\usepackage{tabularx}
+\usepackage{subcaption}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{multirow}
+\newcolumntype{P}[1]{>{\endgraf\vspace*{0.01cm}}p{#1}}
+
+\usepackage{listings}
+\usepackage{minted}
+
+\makeatletter
+\let\l@listing\l@figure
+\makeatother
